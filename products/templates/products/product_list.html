@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'products/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopEase - Products</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px 50px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 5px;
+        }
+
+        .container {
+            width: 90%;            
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .no-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: #777;
+        }
+
+        .product-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .stock {
+            color: green;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background-color: #222;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #444;
+        }
+
+        .product-card .btn {
+            margin: 5px 3px;
+        }
+
+        .product-card .btn:hover {
+            background-color: #2563eb;
+        }
+
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        {% if user.is_authenticated %}
+            <span>Welcome, {{ user.username }}</span>
+            <a href="{% url 'cart' %}">
+                🛒 Cart ({{ cart_count|default:0 }})
+            </a>
+            <a href="{% url 'checkout' %}">Checkout</a>
+            <a href="{% url 'my_orders' %}">My Orders</a>
+            <a href="{% url 'wishlist' %}">❤️ Wishlist</a>
+            <a href="{% url 'profile' %}">👤 My Profile</a>
+            <a href="{% url 'user_logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'user_login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'cart' %}">
+                🛒 Cart ({{ cart_count|default:0 }})
+            </a>
+        {% endif %}
+    </div>
+
+    <header>
+        <h1>ShopEase</h1>
+        <p>Your Online Shopping Store</p>
+    </header>
+
+    <div class="container">
+
+        <h2>Our Products</h2>
+
+        <form method="GET" action="{% url 'product_list' %}">
+            <input
+                type="text"
+                 name="search"
+                placeholder="Search products..."
+                value="{{ request.GET.search }}"
+            >
+            <button type="submit" class="btn">Search</button>
+        </form>
+
+        <div class="categories">
+           <a href="{% url 'product_list' %}"
+                class="category-btn">All
+            </a>
+
+            {% for key, value in categories %}
+                <a href="?category={{ key }}&search={{ request.GET.search|urlencode }}"
+                    class="category-btn">
+                        {{ value }}
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="products">
+
+            {% for product in products %}
+
+            <div class="product-card" data-category="{{ product.category }}">
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <div class="no-image">
+                        No Image Available
+                    </div>
+                {% endif %}
+
+                <h3>{{ product.name }}</h3>
+
+                <p class="price">
+                    ₹{{ product.price }}
+                </p>
+
+                <p class="stock">
+                    Stock: {{ product.stock }}
+                </p>
+
+                <a href="{% url 'product_detail' product.id %}" class="btn">
+                    View Details
+                </a>
+                <a href="{% url 'add_to_wishlist' product.id %}" class="btn">
+                    ❤️ Wishlist
+                </a>
+
+                <a href="{% url 'add_to_cart' product.id %}" class="btn">
+                    Add to Cart
+                </a>
+
+            </div>
+
+            {% empty %}
+
+            <p>No products available.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+</html>

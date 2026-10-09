@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} | ShopEase</title>
+
+    <style>
+        * {
+        box-sizing: border-box;
+        }
+
+        body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #222;
+        }
+
+        header {
+        background: #111827;
+        color: white;
+        padding: 20px 40px;
+        font-size: 24px;
+        font-weight: bold;
+        }
+
+        .back {
+        display: inline-block;
+        margin: 25px 5%;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: bold;
+        }
+
+        .back:hover {
+        text-decoration: underline;
+        }
+
+        .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 10px auto 50px;
+        padding: 35px;
+        background: white;
+        border-radius: 16px;
+        display: flex;
+        gap: 45px;
+        flex-wrap: wrap;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .image-box {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f9fafb;
+        border-radius: 12px;
+        padding: 25px;
+        }
+
+        .image-box img {
+        width: 100%;
+        max-height: 420px;
+        object-fit: contain;
+        border-radius: 10px;
+        }
+
+        .details {
+        flex: 1;
+        min-width: 300px;
+        padding: 10px;
+        }
+
+        h1 {
+        font-size: 32px;
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #111827;
+        }
+
+        .price {
+        color: #16a34a;
+        font-size: 28px;
+        font-weight: bold;
+        margin: 15px 0;
+        }
+
+         .stock {
+        display: inline-block;
+        background: #dcfce7;
+        color: #15803d;
+        padding: 7px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+        }
+
+        .description {
+        line-height: 1.8;
+        color: #555;
+        margin-top: 25px;
+        }
+
+        .btn {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        padding: 13px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-top: 20px;
+        font-weight: bold;
+         }
+
+        .btn:hover {
+        background: #1d4ed8;
+        }
+        .out-of-stock {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 13px 25px;
+        background: #fee2e2;
+        color: #dc2626;
+        border-radius: 8px;
+        font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+        .container {
+        width: 95%;
+        padding: 20px;
+        gap: 25px;
+        }
+
+        .image-box,
+        .details {
+        min-width: 100%;
+        }
+
+        h1 {
+            font-size: 26px;
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <header>ShopEase</header>
+
+    <a href="/" class="back">← Back to Products</a>
+
+    <div class="container">
+        <div class="image-box">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+                <p>No Image Available</p>
+            {% endif %}
+        </div>
+
+        <div class="details">
+            <h1>{{ product.name }}</h1>
+            <p class="price">₹{{ product.price }}</p>
+            <p class="stock">
+                Stock: {{ product.stock }}
+            </p>
+
+            <p class="description">
+                {{ product.description }}
+            </p>
+
+            {% if product.stock > 0 %}
+
+                <a href="{% url 'add_to_cart' product.id %}" class="btn">
+                    🛒 Add to Cart
+                </a>
+                <a href="{% url 'buy_now' product.id %}" class="btn">
+                    ⚡ Buy Now
+                </a>
+                <a href="{% url 'add_to_wishlist' product.id %}" class="btn">
+                    ❤️ Add to Wishlist
+                </a>
+
+            {% else %}
+
+                <span class="out-of-stock">
+                    ❌ Out of Stock
+                </span>
+
+            {% endif %}
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+
+    <div class="review-form">
+
+        <h2>⭐ Write a Review</h2>
+
+        <form method="POST" action="{% url 'add_review' product.id %}">
+
+            {% csrf_token %}
+
+            <label>Rating</label>
+
+            <select name="rating" required>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
+
+            <label>Review</label>
+
+            <textarea
+                name="comment"
+                rows="4"
+                placeholder="Write your review..."
+                required
+            ></textarea>
+
+            <button type="submit" class="btn">
+                Submit Review
+            </button>
+
+        </form>
+
+    </div>
+
+    {% else %}
+
+        <p>Please login to write a review.</p>
+
+    {% endif %} 
+
+<div class="reviews-section">
+
+    <h2>⭐ Customer Reviews</h2>
+
+    {% for review in reviews %}
+
+        <div class="review-card">
+
+            <p>
+                <strong>{{ review.user.username }}</strong>
+            </p>
+
+            <p>
+                {% if review.rating >= 1 %}⭐{% endif %}
+                {% if review.rating >= 2 %}⭐{% endif %}
+                {% if review.rating >= 3 %}⭐{% endif %}
+                {% if review.rating >= 4 %}⭐{% endif %}
+                {% if review.rating >= 5 %}⭐{% endif %}
+            </p>
+
+            <p>
+                {{ review.comment }}
+            </p>
+
+            <small>
+                {{ review.created_at|date:"d M Y, h:i A" }}
+            </small>
+
+        </div>
+
+    {% empty %}
+
+        <p>No reviews yet. Be the first to review this product!</p>
+
+    {% endfor %}
+
+</div>
+</body>
+</html>

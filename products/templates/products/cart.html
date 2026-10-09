@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | ShopEase</title>
+
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #222;
+    }
+
+    header {
+        background: #111827;
+        color: white;
+        padding: 20px 40px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+        margin-top: 0;
+        margin-bottom: 25px;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        padding: 20px 0;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .cart-item img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        border-radius: 10px;
+        background: #f9fafb;
+    }
+
+    .item-info {
+        flex: 1;
+    }
+
+    .item-info h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 20px;
+    }
+
+    .quantity-form {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .quantity-btn {
+        width: 35px;
+        height: 35px;
+        border: none;
+        border-radius: 6px;
+        background: #e5e7eb;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .quantity-btn:hover {
+        background: #d1d5db;
+    }
+
+    .quantity {
+        font-weight: bold;
+        min-width: 25px;
+        text-align: center;
+    }
+
+    .price {
+        color: #16a34a;
+        font-weight: bold;
+        font-size: 18px;
+        margin: 10px 0;
+    }
+
+    .remove-btn {
+        display: inline-block;
+        background: #dc2626;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-top: 5px;
+    }
+
+    .remove-btn:hover {
+        background: #b91c1c;
+    }
+
+    .total {
+        text-align: right;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 25px;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .btn {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 7px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #1d4ed8;
+    }
+
+    .empty {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            width: 95%;
+            padding: 20px;
+        }
+
+        .cart-item {
+            gap: 15px;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .actions {
+            flex-direction: column;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <header>ShopEase</header>
+
+    <div class="container">
+        <h1>My Shopping Cart 🛒</h1>
+
+        {% if cart_items %}
+            {% for item in cart_items %}
+                <div class="cart-item">
+                    {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}"
+                             alt="{{ item.product.name }}">
+                    {% endif %}
+
+                    <div class="item-info">
+                        <h3>{{ item.product.name }}</h3>
+                        <form action="{% url 'update_cart' item.product.id %}" method="POST">
+                            {% csrf_token %}
+
+                            <div class="quantity-form">
+
+                                <button type="submit"
+                                    name="quantity"
+                                    value="{{ item.quantity|add:'-1' }}"
+                                    class="quantity-btn">
+                                    −
+                                </button>
+
+                                <span class="quantity">
+                                    {{ item.quantity }}
+                                </span>
+
+                                <button type="submit"
+                                    name="quantity"
+                                    value="{{ item.quantity|add:'1' }}"
+                                    class="quantity-btn">
+                                     +
+                                </button>
+
+                            </div>
+                        </form>
+                        <p class="price">₹{{ item.subtotal|floatformat:2 }}</p>
+                        <a href="{% url 'remove_from_cart' item.product.id %}"
+                            class="remove-btn">
+                            Remove
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+                <div class="total">
+                    Total: ₹{{ total|floatformat:2 }}
+                </div>
+
+                <div class="actions">
+
+                    <a href="/" class="btn">
+                        ← Continue Shopping
+                    </a>
+
+                    <a href="{% url 'checkout' %}" class="btn">
+                        Proceed to Checkout →
+                    </a>
+
+                </div>
+            {% else %}
+                <div class="empty">
+                    <h2>Your cart is empty!</h2>
+                    <p>Add some products to your cart.</p>
+                    <a href="/" class="btn">Shop Now</a>
+                </div>
+        {% endif %}
+    </div>
+</body>
+</html>

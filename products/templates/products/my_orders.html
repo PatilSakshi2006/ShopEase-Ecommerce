@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | ShopEase</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #111827;
+        }
+
+        .order-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .order-card p {
+            margin: 12px 0;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .total {
+            color: #15803d;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .date {
+            color: #666;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #e0f2fe;
+            color: #075985;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .order-products {
+            margin-top: 22px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .order-products h3 {
+            margin-bottom: 12px;
+        }
+
+        .product-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .empty {
+            background: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .empty p {
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 18px 20px;
+            }
+
+            .container {
+                width: 95%;
+                margin: 25px auto;
+            }
+
+            .order-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>ShopEase</header>
+
+    <main class="container">
+        <h1>My Orders 📦</h1>
+
+        {% for order in orders %}
+            <section class="order-card">
+                <p>
+                    <strong>Order ID:</strong>
+                    #{{ order.id }}
+                </p>
+
+                <p class="date">
+                    <strong>Order Date:</strong>
+                    {{ order.created_at|date:"d M Y, h:i A" }}
+                </p>
+
+                <p class="total">
+                    Total: ₹{{ order.total_amount|floatformat:2 }}
+                </p>
+
+                <p>
+                    <strong>Order Status:</strong>
+                    <span class="status">{{ order.status|default:"Processing" }}</span>
+                </p>
+
+                <div class="order-products">
+                    <h3>Products</h3>
+
+                    {% for item in order.items.all %}
+                        <div class="product-item">
+                            <p>
+                                <strong>{{ item.product.name }}</strong>
+                            </p>
+
+                            <p>Quantity: {{ item.quantity }}</p>
+
+                            <p>
+                                Price per item:
+                                ₹{{ item.price|floatformat:2 }}
+                            </p>
+
+                            <p>
+                                Subtotal:
+                                ₹{{ item.price|floatformat:2 }}
+                                × {{ item.quantity }}
+                                = ₹{{ item.subtotal|default_if_none:"" }}
+                            </p>
+                        </div>
+                    {% empty %}
+                        <p>No products found for this order.</p>
+                    {% endfor %}
+                </div>
+
+                <a href="{% url 'order_detail' order.id %}" class="btn">
+                    View Details
+                </a>
+            </section>
+        {% empty %}
+            <section class="empty">
+                <h2>No orders yet!</h2>
+                <p>Your placed orders will appear here.</p>
+            </section>
+        {% endfor %}
+
+        <a href="/" class="btn">← Continue Shopping</a>
+    </main>
+</body>
+</html>

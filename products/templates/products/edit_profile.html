@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopEase - Edit Profile</title>
+
+    <link rel="stylesheet" href="{% static 'products/style.css' %}">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="{% url 'product_list' %}">🏠 Home</a>
+        <a href="{% url 'cart' %}">🛒 Cart</a>
+        <a href="{% url 'wishlist' %}">❤️ Wishlist</a>
+        <a href="{% url 'my_orders' %}">📦 My Orders</a>
+        <a href="{% url 'profile' %}">👤 Profile</a>
+        <a href="{% url 'user_logout' %}">Logout</a>
+    </div>
+
+    <div class="container">
+
+        <h1>✏️ Edit Profile</h1>
+
+        <div class="profile-card">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label>Phone Number</label>
+                <input
+                    type="text"
+                    name="phone"
+                    value="{{ profile.phone }}"
+                    placeholder="Enter phone number"
+                >
+
+                <label>Address</label>
+                <textarea
+                    name="address"
+                    placeholder="Enter delivery address"
+                    rows="4"
+                >{{ profile.address }}</textarea>
+
+                <label>City</label>
+                <input
+                    type="text"
+                    name="city"
+                    value="{{ profile.city }}"
+                    placeholder="Enter city"
+                >
+
+                <label>Pincode</label>
+                <input
+                    type="text"
+                    name="pincode"
+                    value="{{ profile.pincode }}"
+                    placeholder="Enter pincode"
+                >
+
+                <button type="submit" class="btn">
+                    💾 Save Profile
+                </button>
+
+                <a href="{% url 'profile' %}" class="btn">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+        <a href="{% url 'edit_profile' %}" class="btn">
+            ✏️ Edit Profile
+        </a>    
+
+    </div>
+
+</body>
+</html>

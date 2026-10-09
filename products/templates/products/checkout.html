@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - ShopEase</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .checkout-container {
+            width: 90%;
+            max-width: 700px;
+            margin: 50px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: #111827;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .order-summary {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+        }
+
+        .order-summary h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .summary-item span:last-child {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .total {
+            margin-top: 20px;
+            padding: 18px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border-radius: 8px;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            text-decoration: none;
+            color: #2563eb;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .checkout-container {
+                width: 95%;
+                padding: 22px;
+                margin: 25px auto;
+            }
+
+            .total {
+                text-align: center;
+                font-size: 19px;
+            }
+
+            .summary-item {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="checkout-container">
+        <h1>Checkout</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="customer_name">Customer Name</label>
+            <input
+                type="text"
+                id="customer_name"
+                name="customer_name"
+                autocomplete="name"
+                required
+            >
+
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                required
+            >
+
+            <label for="address">Delivery Address</label>
+            <textarea
+                id="address"
+                name="address"
+                autocomplete="street-address"
+                required
+            ></textarea>
+
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+
+                {% for item in cart_items %}
+                    <div class="summary-item">
+                        <span>
+                            {{ item.product.name }} × {{ item.quantity }}
+                        </span>
+
+                        <span>
+                            ₹{{ item.subtotal|floatformat:2 }}
+                        </span>
+                    </div>
+                {% empty %}
+                    <p>Your cart is empty.</p>
+                {% endfor %}
+            </div>
+
+            <div class="total">
+                Total Amount: ₹{{ total|floatformat:2 }}
+            </div>
+
+            <button type="submit" class="btn">
+                Place Order
+            </button>
+        </form>
+
+        <a href="{% url 'cart' %}" class="back">
+            ← Back to Cart
+        </a>
+    </div>
+</body>
+</html>

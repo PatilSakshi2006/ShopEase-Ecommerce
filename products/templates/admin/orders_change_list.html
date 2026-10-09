@@ -1,0 +1,526 @@
+{% extends "admin/change_list.html" %}
+
+{% block content_title %}
+    <h1>Order Dashboard</h1>
+
+    <!-- Dashboard Cards -->
+    <div style="display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
+
+        <div style="padding: 20px; background: #e8f5e9; border-radius: 10px;">
+            <h3>Total Products</h3>
+            <h2>{{ total_products }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #e3f2fd; border-radius: 10px;">
+            <h3>Total Users</h3>
+            <h2>{{ total_users }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #fff3cd; border-radius: 10px;">
+            <h3>Low Stock Products</h3>
+            <h2>{{ low_stock_products }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #f5f5f5; border-radius: 10px;">
+            <h3>Total Orders</h3>
+            <h2>{{ cl.result_count }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #fff3cd; border-radius: 10px;">
+            <h3>Pending Orders</h3>
+            <h2>{{ pending_orders }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #d1ecf1; border-radius: 10px;">
+            <h3>Shipped Orders</h3>
+            <h2>{{ shipped_orders }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #d4edda; border-radius: 10px;">
+            <h3>Delivered Orders</h3>
+            <h2>{{ delivered_orders }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #e2e3e5; border-radius: 10px;">
+            <h3>Total Sales</h3>
+            <h2>₹{{ total_sales }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #e8eaf6; border-radius: 10px;">
+            <h3>Average Order Value</h3>
+            <h2>₹{{ average_order_value|floatformat:2 }}</h2>
+        </div>
+
+        <div style="padding: 20px; background: #f8d7da; border-radius: 10px;">
+            <h3>Cancelled Orders</h3>
+            <h2>{{ cancelled_orders }}</h2>
+        </div>
+
+    </div>
+
+
+    <!-- Order Status Summary -->
+    <div style="margin: 30px 0; padding: 20px; background: white; border-radius: 10px;">
+
+        <h2>Order Status Summary</h2>
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+
+            <div style="padding: 20px; background: #fff3cd; border-radius: 10px; min-width: 150px;">
+                <h3>🕐 Pending</h3>
+                <h2>{{ pending_orders }}</h2>
+            </div>
+
+            <div style="padding: 20px; background: #d1ecf1; border-radius: 10px; min-width: 150px;">
+                <h3>🚚 Shipped</h3>
+                <h2>{{ shipped_orders }}</h2>
+            </div>
+
+            <div style="padding: 20px; background: #d4edda; border-radius: 10px; min-width: 150px;">
+                <h3>✅ Delivered</h3>
+                <h2>{{ delivered_orders }}</h2>
+            </div>
+
+            <div style="padding: 20px; background: #e2e3e5; border-radius: 10px; min-width: 150px;">
+                <h3>❌ Cancelled</h3>
+                <h2>{{ cancelled_orders }}</h2>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Order Status Chart -->
+
+<div style="margin: 30px 0; padding: 25px; background: white; border-radius: 12px;">
+
+    <h2 style="margin-bottom: 25px;">📊 Order Status Chart</h2>
+
+    <!-- Pending -->
+
+    <div style="margin-bottom: 20px;">
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <strong>🕐 Pending</strong>
+            <strong>{{ pending_orders }}</strong>
+        </div>
+
+        <div style="background: #eee; border-radius: 10px; overflow: hidden; height: 25px;">
+
+            <div style="
+                width: {{ pending_percent }}%;
+                background: #ffc107;
+                height: 25px;
+                border-radius: 10px;
+            ">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Shipped -->
+
+    <div style="margin-bottom: 20px;">
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <strong>🚚 Shipped</strong>
+            <strong>{{ shipped_orders }}</strong>
+        </div>
+
+        <div style="background: #eee; border-radius: 10px; overflow: hidden; height: 25px;">
+
+            <div style="
+                width: {{ shipped_percent }}%;
+                background: #17a2b8;
+                height: 25px;
+                border-radius: 10px;
+            ">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Delivered -->
+
+    <div style="margin-bottom: 20px;">
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <strong>✅ Delivered</strong>
+            <strong>{{ delivered_orders }}</strong>
+        </div>
+
+        <div style="background: #eee; border-radius: 10px; overflow: hidden; height: 25px;">
+
+            <div style="
+                width: {{ delivered_percent }}%;
+                background: #28a745;
+                height: 25px;
+                border-radius: 10px;
+            ">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Cancelled -->
+
+    <div style="margin-bottom: 5px;">
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <strong>❌ Cancelled</strong>
+            <strong>{{ cancelled_orders }}</strong>
+        </div>
+
+        <div style="background: #eee; border-radius: 10px; overflow: hidden; height: 25px;">
+
+            <div style="
+                width: {{ cancelled_percent }}%;
+                background: #6c757d;
+                height: 25px;
+                border-radius: 10px;
+            ">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Recent Orders -->
+
+<div style="margin: 30px 0; padding: 25px; background: white; border-radius: 12px;">
+
+    <h2 style="margin-bottom: 20px;">🛒 Recent Orders</h2>
+
+    <table style="width: 100%; border-collapse: collapse;">
+
+        <thead>
+            <tr style="background: #f5f5f5;">
+
+                <th style="padding: 12px; text-align: left;">
+                    Order
+                </th>
+
+                <th style="padding: 12px; text-align: left;">
+                    Customer
+                </th>
+
+                <th style="padding: 12px; text-align: left;">
+                    Amount
+                </th>
+
+                <th style="padding: 12px; text-align: left;">
+                    Status
+                </th>
+
+                <th style="padding: 12px; text-align: left;">
+                    Date
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for order in recent_orders %}
+
+            <tr style="border-bottom: 1px solid #eee;">
+
+                <td style="padding: 12px;">
+                    <a href="{% url 'admin:products_order_change' order.id %}"
+                        style="font-weight: bold; text-decoration: none;">
+                        #{{ order.id }}
+                    </a>
+                </td>
+
+                <td style="padding: 12px;">
+                    {{ order.customer_name }}
+                </td>
+
+                <td style="padding: 12px;">
+                    ₹{{ order.total_amount }}
+                </td>
+
+                <td style="padding: 12px;">
+                    {{ order.status }}
+                </td>
+
+                <td style="padding: 12px;">
+                    {{ order.created_at|date:"d M Y, h:i A" }}
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="5" style="padding: 20px; text-align: center;">
+                    No orders yet.
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- Low Stock Products -->
+
+<div style="margin: 30px 0; padding: 25px; background: white; border-radius: 12px;">
+
+    <h2 style="margin-bottom: 20px;">⚠️ Low Stock Products</h2>
+
+    {% if low_stock_products > 0 %}
+        <div style="
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #fff3cd;
+            color: #856404;
+            border-left: 5px solid #ffc107;
+            border-radius: 8px;
+            ">
+            🔔 <strong>Low Stock Alert!</strong>
+            {{ low_stock_products }} product(s) have stock of 5 or less.
+            Please restock soon.
+        </div>
+    {% else %}
+        <div style="
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 8px;
+            ">
+            ✅ All products have sufficient stock.
+        </div>
+    {% endif %}
+    {% for product in low_stock_products_list %}
+
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fff8e1;
+            border-radius: 8px;
+            ">
+
+            <strong>{{ product.name }}</strong>
+
+            <span>
+                Stock: <strong>{{ product.stock }}</strong>
+            </span>
+
+        </div>
+
+    {% empty %}
+
+        <p>✅ All products have sufficient stock.</p>
+
+    {% endfor %}
+
+</div>
+
+<!-- Quick Actions -->
+
+<div style="
+    margin: 30px 0;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+">
+
+    <h2 style="margin-bottom: 20px;">⚡ Quick Actions</h2>
+
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+
+        <a href="{% url 'admin:products_product_add' %}"
+           style="
+               padding: 12px 20px;
+               background: #2563eb;
+               color: white;
+               text-decoration: none;
+               border-radius: 8px;
+           ">
+            ➕ Add Product
+        </a>
+
+        <a href="{% url 'admin:products_product_changelist' %}"
+           style="
+               padding: 12px 20px;
+               background: #198754;
+               color: white;
+               text-decoration: none;
+               border-radius: 8px;
+           ">
+            📦 View Products
+        </a>
+
+        <a href="{% url 'admin:products_order_changelist' %}"
+           style="
+               padding: 12px 20px;
+               background: #6f42c1;
+               color: white;
+               text-decoration: none;
+               border-radius: 8px;
+           ">
+            🛒 View Orders
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- Top Selling Products -->
+<div style="margin: 30px 0; padding: 25px; background: white; border-radius: 12px;">
+
+    <h2 style="margin-bottom: 20px;">🏆 Top Selling Products</h2>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: #f5f5f5;">
+                <th style="padding: 12px; text-align: left;">Product</th>
+                <th style="padding: 12px; text-align: left;">Quantity Sold</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for product in top_selling_products %}
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 12px;">
+                    {{ product.product__name|default:"Deleted product" }}
+                </td>
+                <td style="padding: 12px;">
+                    {{ product.total_sold }}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2" style="padding: 20px;">
+                    No sales data available yet.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+<!-- Product Sales Analytics -->
+<div style="margin: 30px 0; padding: 25px; background: white; border-radius: 12px;">
+
+    <h2 style="margin-bottom: 20px;">📊 Product Sales Analytics</h2>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: #f5f5f5;">
+                <th style="padding: 12px; text-align: left;">Product</th>
+                <th style="padding: 12px; text-align: left;">Quantity Sold</th>
+                <th style="padding: 12px; text-align: left;">Total Revenue</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in product_sales_analytics %}
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 12px;">
+                    {{ item.product__name|default:"Deleted product" }}
+                </td>
+                <td style="padding: 12px;">{{ item.total_sold }}</td>
+                <td style="padding: 12px;">
+                    ₹{{ item.total_revenue|floatformat:2 }}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" style="padding: 20px;">
+                    No sales data available yet.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<!-- Monthly Sales Report -->
+<div style="margin: 30px 0; padding: 25px; background: white; border-radius: 12px;">
+
+    <h2 style="margin-bottom: 20px;">📅 Monthly Sales Report</h2>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: #f5f5f5;">
+                <th style="padding: 12px; text-align: left;">Month</th>
+                <th style="padding: 12px; text-align: left;">Total Sales</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in monthly_sales %}
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 12px;">
+                    {{ item.month|date:"F Y" }}
+                </td>
+                <td style="padding: 12px;">
+                    ₹{{ item.total_sales|floatformat:2 }}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2" style="padding: 20px;">
+                    No sales data available yet.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+<!-- Monthly Sales Bar Chart -->
+<div style="margin: 30px 0; padding: 25px; background: white; border-radius: 12px;">
+
+    <h2 style="margin-bottom: 25px;">📈 Monthly Sales Chart</h2>
+
+    {% for item in monthly_sales %}
+        <div style="margin-bottom: 20px;">
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <strong>{{ item.month|date:"F Y" }}</strong>
+                <strong>₹{{ item.total_sales|floatformat:2 }}</strong>
+            </div>
+
+            <div style="background: #eee; border-radius: 10px; height: 28px; overflow: hidden;">
+                <div style="
+                    width: {% widthratio item.total_sales total_sales 100 %}%;
+                    background: #2563eb;
+                    height: 28px;
+                    border-radius: 10px;
+                    min-width: 5px;
+                "></div>
+            </div>
+
+        </div>
+    {% empty %}
+        <p>No sales data available yet.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

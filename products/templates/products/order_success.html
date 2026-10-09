@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Successful - ShopEase</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .success-container {
+            width: 90%;
+            max-width: 650px;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .success-icon {
+            font-size: 65px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #16a34a;
+            margin-bottom: 10px;
+        }
+
+        .success-container > p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .order-info {
+            margin-top: 30px;
+            padding: 22px;
+            background: #f8fafc;
+            border-radius: 10px;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+            overflow-wrap: anywhere;
+        }
+
+        .order-info p {
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+
+        .total {
+            font-size: 21px;
+            font-weight: bold;
+            color: #16a34a;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #16a34a;
+        }
+
+        .btn-secondary:hover {
+            background: #15803d;
+        }
+
+        @media (max-width: 600px) {
+            .success-container {
+                width: 95%;
+                padding: 25px 18px;
+                margin: 30px auto;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-container">
+
+        <div class="success-icon">✅</div>
+
+        <h1>Order Placed Successfully!</h1>
+
+        <p>Thank you for shopping with ShopEase.</p>
+        <p>Your order has been recorded successfully.</p>
+
+        <div class="order-info">
+            <p>
+                <strong>Order ID:</strong>
+                #{{ order.id }}
+            </p>
+
+            <p>
+                <strong>Customer:</strong>
+                {{ order.customer_name }}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                {{ order.email }}
+            </p>
+
+            <p>
+                <strong>Delivery Address:</strong>
+                {{ order.address }}
+            </p>
+
+            <p>
+                <strong>Order Date:</strong>
+                {{ order.created_at|date:"d M Y, h:i A" }}
+            </p>
+
+            <p class="total">
+                Total Amount: ₹{{ order.total_amount|floatformat:2 }}
+            </p>
+        </div>
+
+        <div class="buttons">
+            <a href="{% url 'product_list' %}" class="btn">
+                Continue Shopping
+            </a>
+
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'my_orders' %}" class="btn btn-secondary">
+                    My Orders
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+</body>
+</html>
