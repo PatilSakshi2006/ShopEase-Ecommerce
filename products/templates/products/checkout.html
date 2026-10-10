@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -181,17 +181,35 @@
                 required
             ></textarea>
 
+
+            <div class="payment-method">
+                <h3>Payment Method</h3>
+
+                <label>
+                    <input
+                            type="radio"
+                            name="payment_method"
+                            value="cod"
+                            checked
+                        >
+                        Cash on Delivery (COD)
+                </label>
+
+                    <p>Pay when your order is delivered.</p>
+            </div>
+
+
             <div class="order-summary">
                 <h2>Order Summary</h2>
 
                 {% for item in cart_items %}
                     <div class="summary-item">
                         <span>
-                            {{ item.product.name }} × {{ item.quantity }}
+                            {{ item.product.name }} Ã— {{ item.quantity }}
                         </span>
 
                         <span>
-                            ₹{{ item.subtotal|floatformat:2 }}
+                            â‚¹{{ item.subtotal|floatformat:2 }}
                         </span>
                     </div>
                 {% empty %}
@@ -200,7 +218,7 @@
             </div>
 
             <div class="total">
-                Total Amount: ₹{{ total|floatformat:2 }}
+                Total Amount: â‚¹{{ total|floatformat:2 }}
             </div>
 
             <button type="submit" class="btn">
@@ -209,7 +227,7 @@
         </form>
 
         <a href="{% url 'cart' %}" class="back">
-            ← Back to Cart
+            â† Back to Cart
         </a>
     </div>
 </body>

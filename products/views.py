@@ -169,6 +169,14 @@ def checkout(request):
         customer_name = request.POST.get('customer_name', '').strip()
         email = request.POST.get('email', '').strip()
         address = request.POST.get('address', '').strip()
+        payment_method = request.POST.get('payment_method', 'cod').strip()
+
+        if payment_method != 'cod':
+            return render(request, 'products/checkout.html', {
+                'cart_items': cart_items,
+                'total': total,
+                'error_message': 'Please select a valid payment method.'
+            })
 
         if not customer_name or not email or not address:
             return render(request, 'products/checkout.html', {
@@ -212,7 +220,8 @@ def checkout(request):
                     customer_name=customer_name,
                     email=email,
                     address=address,
-                    total_amount=total
+                    total_amount=total,
+                    payment_method=payment_method
                 )
 
                 for product in locked_products:
