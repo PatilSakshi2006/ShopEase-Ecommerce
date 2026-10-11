@@ -12,7 +12,9 @@ env/
 db.sqlite3
 
 # User-uploaded media
-media/
+media/*
+!media/products/
+!media/products/**
 
 # Environment variables and secrets
 .env
@@ -22,3 +24,6 @@ media/
 .vscode/
 .DS_Store
 Thumbs.db
+git status --short
+# Collected static files
+staticfiles/
