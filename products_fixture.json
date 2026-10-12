@@ -1,0 +1,457 @@
+[
+{
+  "model": "products.product",
+  "pk": 1,
+  "fields": {
+    "name": "Wireless Headphones",
+    "category": "Electronics",
+    "description": "Bluetooth wireless headphones with clear sound and comfortable design.",
+    "price": "1498.78",
+    "image": "products/wireless_headphones_8JaLGGR.avif",
+    "stock": 70,
+    "created_at": "2026-09-29T20:36:04.579Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 2,
+  "fields": {
+    "name": "Smart Watch",
+    "category": "Electronics",
+    "description": "Stay connected and manage your daily activities with this stylish smart watch. Its modern design makes it suitable for both casual and formal occasions. Track your daily fitness activities and conveniently check notifications on your wrist.",
+    "price": "2498.00",
+    "image": "products/smart_watch.webp",
+    "stock": 8,
+    "created_at": "2026-09-29T20:39:08.937Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 3,
+  "fields": {
+    "name": "Bluetooth Earbuds",
+    "category": "Electronics",
+    "description": "Experience convenient wireless listening with these compact Bluetooth earbuds. Their lightweight design makes them comfortable to carry and suitable for music, calls and online meetings. The portable charging case helps keep your earbuds ready for everyday use.",
+    "price": "999.00",
+    "image": "products/Bluetooth_Earbuds.avif",
+    "stock": 27,
+    "created_at": "2026-09-29T20:40:41.254Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 4,
+  "fields": {
+    "name": "Backpack",
+    "category": "Stationery",
+    "description": "Carry your essentials comfortably with this versatile backpack. It features a spacious main compartment for books, gadgets and everyday items. Its simple, modern design makes it suitable for college, office, travel and daily use.",
+    "price": "899.00",
+    "image": "products/backpack.webp",
+    "stock": 8,
+    "created_at": "2026-09-29T20:44:40.992Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 5,
+  "fields": {
+    "name": "Sneakers",
+    "category": "Fashion",
+    "description": "Step out in style with these comfortable and trendy sneakers. Featuring a modern design and a versatile look, they pair well with jeans, trousers and casual outfits. Suitable for everyday wear, college and outings.",
+    "price": "1998.00",
+    "image": "products/sneakers.webp",
+    "stock": 10,
+    "created_at": "2026-09-29T20:46:17.736Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 6,
+  "fields": {
+    "name": "Notebook",
+    "category": "Stationery",
+    "description": "Keep your thoughts and ideas organized with this practical notebook. It is ideal for taking class notes, writing daily plans, maintaining a journal and making important lists. Its compact design makes it easy to carry in your bag.",
+    "price": "199.00",
+    "image": "products/notebook.jpg",
+    "stock": 47,
+    "created_at": "2026-09-29T20:48:41.520Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 7,
+  "fields": {
+    "name": "Women's Wallet",
+    "category": "Fashion",
+    "description": "Keep your essentials organized with this elegant women's wallet. Its stylish and compact design makes it easy to carry in a handbag or backpack. It is suitable for storing cash, cards and other small everyday essentials.",
+    "price": "498.00",
+    "image": "products/Womens_Wallet.avif",
+    "stock": 21,
+    "created_at": "2026-09-29T20:50:35.564Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 8,
+  "fields": {
+    "name": "Table Lamp",
+    "category": "Home",
+    "description": "Brighten up your workspace with this modern table lamp. Its elegant design complements study tables, office desks and bedside tables. It is a practical addition to your home and provides convenient lighting for reading and everyday tasks.",
+    "price": "799.00",
+    "image": "products/table_Lamp.webp",
+    "stock": 12,
+    "created_at": "2026-09-29T20:53:10.254Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 9,
+  "fields": {
+    "name": "Bluetooth Speaker",
+    "category": "Electronics",
+    "description": "Enjoy your favourite music with this portable Bluetooth speaker. Its compact design makes it convenient to carry to picnics, gatherings and other outings. Connect compatible devices wirelessly and enjoy music at home or on the go.",
+    "price": "1299.00",
+    "image": "products/Bluetooth_Speaker.webp",
+    "stock": 18,
+    "created_at": "2026-09-29T20:54:58.573Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 10,
+  "fields": {
+    "name": "Wireless Keyboard",
+    "category": "Electronics",
+    "description": "Slim and comfortable wireless keyboard suitable for work, study and everyday typing.",
+    "price": "798.79",
+    "image": "products/keyboard.jpg",
+    "stock": 25,
+    "created_at": "2026-10-02T19:01:41.314Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 11,
+  "fields": {
+    "name": "Wireless Mouse",
+    "category": "Electronics",
+    "description": "Compact wireless mouse with smooth tracking, ideal for laptops, desktops and office use.",
+    "price": "499.00",
+    "image": "products/mouse.jpg",
+    "stock": 48,
+    "created_at": "2026-10-02T19:02:32.889Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 12,
+  "fields": {
+    "name": "Power Bank",
+    "category": "Electronics",
+    "description": "Portable power bank designed to provide convenient backup charging for smartphones and other devices.",
+    "price": "899.00",
+    "image": "products/power.jpg",
+    "stock": 37,
+    "created_at": "2026-10-02T19:03:13.063Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 13,
+  "fields": {
+    "name": "USB-C Fast Charger",
+    "category": "Electronics",
+    "description": "Compact fast charger with USB-C connectivity, suitable for compatible smartphones and other devices.",
+    "price": "699.00",
+    "image": "products/usb_FFwjRiY.jpg",
+    "stock": 34,
+    "created_at": "2026-10-02T19:03:51.420Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 14,
+  "fields": {
+    "name": "Laptop Stand",
+    "category": "Stationery",
+    "description": "Adjustable laptop stand that helps create a comfortable viewing position for study and work.",
+    "price": "1099.00",
+    "image": "products/laptop_stand.jpg",
+    "stock": 17,
+    "created_at": "2026-10-02T19:04:52.876Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 15,
+  "fields": {
+    "name": "Portable SSD",
+    "category": "Electronics",
+    "description": "Compact external SSD suitable for storing and transferring documents, photos, videos and other files.",
+    "price": "3499.00",
+    "image": "products/ssd_l1FqryG.jpg",
+    "stock": 2,
+    "created_at": "2026-10-02T19:06:03.723Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 16,
+  "fields": {
+    "name": "Smart LED Bulb",
+    "category": "Electronics",
+    "description": "Smart LED bulb designed for convenient lighting and suitable for bedrooms, study tables and living spaces.",
+    "price": "499.00",
+    "image": "products/led.jpg",
+    "stock": 22,
+    "created_at": "2026-10-02T19:07:01.468Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 17,
+  "fields": {
+    "name": "Women's T-Shirt",
+    "category": "Fashion",
+    "description": "Comfortable casual T-shirt suitable for everyday wear, college and outings.",
+    "price": "599.00",
+    "image": "products/w_shirt_ZfvxE1y.jpg",
+    "stock": 30,
+    "created_at": "2026-10-02T19:07:33.475Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 18,
+  "fields": {
+    "name": "Men's Casual Shirt",
+    "category": "Fashion",
+    "description": "Comfortable casual shirt suitable for everyday wear, college and semi-formal occasions.",
+    "price": "899.00",
+    "image": "products/mshirt.jpg",
+    "stock": 25,
+    "created_at": "2026-10-02T19:08:14.946Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 19,
+  "fields": {
+    "name": "Women's Hoodie",
+    "category": "Fashion",
+    "description": "Soft and comfortable hoodie designed for casual wear during cool weather.",
+    "price": "1199.00",
+    "image": "products/hoodie.jpg",
+    "stock": 20,
+    "created_at": "2026-10-02T19:08:51.148Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 20,
+  "fields": {
+    "name": "Men's Jeans",
+    "category": "Fashion",
+    "description": "Classic casual jeans designed for everyday outfits and comfortable movement.",
+    "price": "1498.89",
+    "image": "products/mjeans.jpg",
+    "stock": 21,
+    "created_at": "2026-10-02T19:09:30.070Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 21,
+  "fields": {
+    "name": "Women's Kurti",
+    "category": "Fashion",
+    "description": "Stylish everyday kurti suitable for college, casual outings and comfortable daily wear.",
+    "price": "999.00",
+    "image": "products/wtop_rrHQdst.jpg",
+    "stock": 22,
+    "created_at": "2026-10-02T19:10:04.827Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 22,
+  "fields": {
+    "name": "Cotton Top",
+    "category": "Fashion",
+    "description": "Lightweight cotton top suitable for everyday wear, college and casual outings.",
+    "price": "549.00",
+    "image": "products/wtop.jpg",
+    "stock": 25,
+    "created_at": "2026-10-02T19:10:38.333Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 23,
+  "fields": {
+    "name": "Leather Belt",
+    "category": "Accessories",
+    "description": "Classic everyday belt designed to complement both casual and semi-formal outfits.",
+    "price": "599.00",
+    "image": "products/belt.jpg",
+    "stock": 30,
+    "created_at": "2026-10-02T19:11:10.513Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 24,
+  "fields": {
+    "name": "Sunglasses",
+    "category": "Accessories",
+    "description": "Stylish sunglasses suitable for everyday outdoor use and casual outfits.",
+    "price": "799.00",
+    "image": "products/glass.jpg",
+    "stock": 20,
+    "created_at": "2026-10-02T19:11:38.428Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 25,
+  "fields": {
+    "name": "Analog Watch",
+    "category": "Accessories",
+    "description": "Classic analog watch with a simple design suitable for everyday and formal wear.",
+    "price": "1299.00",
+    "image": "products/Analog_Watch.jpg",
+    "stock": 10,
+    "created_at": "2026-10-02T19:12:21.876Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 26,
+  "fields": {
+    "name": "Minimal Bracelet",
+    "category": "Accessories",
+    "description": "Simple bracelet designed to complement casual and everyday outfits.",
+    "price": "349.00",
+    "image": "products/Minimal_Bracelet.jpg",
+    "stock": 28,
+    "created_at": "2026-10-02T19:13:01.366Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 27,
+  "fields": {
+    "name": "Coffee Mug",
+    "category": "Home",
+    "description": "Simple ceramic coffee mug suitable for tea, coffee and everyday use.",
+    "price": "299.00",
+    "image": "products/Coffee_Mug.webp",
+    "stock": 35,
+    "created_at": "2026-10-02T19:13:31.519Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 28,
+  "fields": {
+    "name": "Water Bottle",
+    "category": "Home",
+    "description": "Reusable water bottle suitable for college, office, travel and everyday hydration.",
+    "price": "499.00",
+    "image": "products/Water_Bottle.jpg",
+    "stock": 46,
+    "created_at": "2026-10-02T19:14:03.963Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 29,
+  "fields": {
+    "name": "Wall Clock",
+    "category": "Home",
+    "description": "Simple wall clock suitable for bedrooms, living rooms, offices and study spaces.",
+    "price": "899.00",
+    "image": "products/Wall_Clock.webp",
+    "stock": 15,
+    "created_at": "2026-10-02T19:14:38.501Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 30,
+  "fields": {
+    "name": "Plant Pot",
+    "category": "Home",
+    "description": "Decorative plant pot suitable for indoor plants, desks, balconies and living spaces.",
+    "price": "349.00",
+    "image": "products/Plant_Pot.jpg",
+    "stock": 49,
+    "created_at": "2026-10-02T19:15:11.120Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 31,
+  "fields": {
+    "name": "Storage Basket",
+    "category": "Home",
+    "description": "Multipurpose storage basket suitable for organizing clothes, accessories, toys and household items.",
+    "price": "699.00",
+    "image": "products/Storage_Basket.webp",
+    "stock": 18,
+    "created_at": "2026-10-02T19:16:00.068Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 32,
+  "fields": {
+    "name": "Highlighter Set",
+    "category": "Stationery",
+    "description": "Set of bright highlighters designed for marking important notes and study material.",
+    "price": "199.00",
+    "image": "products/Highlighter_Set.webp",
+    "stock": 40,
+    "created_at": "2026-10-02T19:16:46.984Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 33,
+  "fields": {
+    "name": "Geometry Box",
+    "category": "Stationery",
+    "description": "Complete geometry box suitable for students and everyday mathematical drawing needs.",
+    "price": "180.00",
+    "image": "products/Geometry_Box.jpg",
+    "stock": 56,
+    "created_at": "2026-10-02T19:17:23.469Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 34,
+  "fields": {
+    "name": "Pencil Box",
+    "category": "Stationery",
+    "description": "Compact pencil box designed to organize pens, pencils, erasers and other stationery.",
+    "price": "30.00",
+    "image": "products/Pencil_Box.webp",
+    "stock": 43,
+    "created_at": "2026-10-02T19:18:14.486Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 35,
+  "fields": {
+    "name": "Sticky Notes",
+    "category": "Stationery",
+    "description": "Colorful sticky notes suitable for reminders, quick notes and study organization.",
+    "price": "99.00",
+    "image": "products/Sticky_Notes.webp",
+    "stock": 70,
+    "created_at": "2026-10-02T19:18:50.249Z"
+  }
+}
+]
